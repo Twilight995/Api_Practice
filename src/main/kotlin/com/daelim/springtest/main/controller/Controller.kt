@@ -1,9 +1,8 @@
 package com.daelim.springtest.main.controller
 
+import com.daelim.springtest.main.api.model.dto.BoardDto
 import com.daelim.springtest.main.api.model.dto.TestDto
 import com.daelim.springtest.main.api.model.dto.TestDtoRequest
-import io.swagger.v3.oas.annotations.Parameter
-import jakarta.validation.Valid
 import net.datafaker.Faker
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,7 +10,11 @@ import java.util.*
 
 @RestController
 class Controller {
+
     private val tests = mutableListOf<TestDto>()
+    private val boards = mutableListOf<BoardDto>()
+
+
 
     @PostMapping("/test")
     fun postTestDto(
@@ -28,18 +31,17 @@ class Controller {
         tests.add(test)
         return ResponseEntity.ok().body(test)
     }
+
     @GetMapping("/test")
-    fun getAllTestDto(
-    ): ResponseEntity<List<TestDto>> {
-        val response = tests
-        return ResponseEntity.ok().body(response)
+    fun getAllTestDto(): ResponseEntity<List<TestDto>> {
+        return ResponseEntity.ok().body(tests)
     }
 
     @GetMapping("/test/{id}")
     fun getTestDto(
         @PathVariable("id") userId: String
     ): ResponseEntity<TestDto> {
-        val response = tests.firstOrNull{it.id == userId}
+        val response = tests.firstOrNull { it.id == userId }
         return ResponseEntity.ok().body(response)
     }
 
@@ -47,9 +49,20 @@ class Controller {
     fun deleteTestDto(
         @PathVariable("id") userId: String
     ): ResponseEntity<List<TestDto>> {
-        tests.removeIf {
-            it.id == userId
-        }
+        tests.removeIf { it.id == userId }
         return ResponseEntity.ok().body(tests)
+    }
+
+    @PostMapping("/board")
+    fun createBoard(
+        @RequestBody boardDto: BoardDto
+    ): ResponseEntity<BoardDto> {
+        boards.add(boardDto)
+        return ResponseEntity.ok().body(boardDto)
+    }
+
+    @GetMapping("/board")
+    fun getAllBoards(): ResponseEntity<List<BoardDto>> {
+        return ResponseEntity.ok().body(boards)
     }
 }
