@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.11" // 3.2.3을 3.2.11로 수정
+    id("org.springframework.boot") version "3.2.11"
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.spring") version "1.9.22"
@@ -20,23 +20,21 @@ repositories {
 }
 
 dependencies {
-//	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-//	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
-
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-//	runtimeOnly("com.mysql:mysql-connector-j")
+
+    // coroutine
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+
+    // spring
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-//	swagger-ui
+    // swagger-ui
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
-//  graphql
-    implementation ("org.springframework.boot:spring-boot-starter-graphql")
+    // graphql
+    implementation("org.springframework.boot:spring-boot-starter-graphql")
 
-//	util
+    // util
     implementation("net.datafaker:datafaker:2.1.0")
 }
 
